@@ -12,14 +12,10 @@ export function SignInButton() {
       disabled={pending}
       variant="outline"
       type="submit"
-      className="w-full mt-6 bg-blue-400 hover:bg-blue-300 text-white hover:text-white"
+      className="mt-6 w-[200px] mx-auto rounded-full bg-[#001A2F] hover:bg-[#001a2fc1] text-white hover:text-white"
     >
-      {pending ? (
-        <Loader2 className="mr-2 size-4 animate-spin" />
-      ) : (
-        <Mail className="mr-2 size-4" />
-      )}
-      Realizar login
+      {pending ? <Loader2 className="mr-2 size-4 animate-spin" /> : <></>}
+      Entrar
     </Button>
   );
 }
