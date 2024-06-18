@@ -2,17 +2,24 @@
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
 import { SignInButton } from "./sign-in-button";
 import { toast } from "sonner";
 import { signInWithEmail } from "../action";
+import { Eye, EyeOff } from "lucide-react";
 
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export function UserAuthForm() {
   const { push } = useRouter();
+
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
   return (
-    <div className={cn("grid gap-6")}>
+    <div className="grid">
       <form
         action={async (FormData) => {
           try {
@@ -29,8 +36,8 @@ export function UserAuthForm() {
           }
         }}
       >
-        <div className="grid gap-2 p-2">
-          <Label className="text-zinc-800 font-normal" htmlFor="email">
+        <div className="grid gap-2 p-2 mt-10">
+          <Label className="text-[#5B5757] font-bold" htmlFor="email">
             Email
           </Label>
           <Input
@@ -40,24 +47,32 @@ export function UserAuthForm() {
             autoCorrect="off"
             autoComplete="email"
             autoCapitalize="none"
-            placeholder="name@example.com"
-            className="text-zinc-800 rounded-lg h-10 placeholder:text-black border border-slate-300 hover:border-blue-400 focus:border-blue-400"
+            placeholder="Digite seu email"
+            className="text-[#5B5757] rounded-xl h-10 mb-4 placeholder:text-[#536779] border border-slate-300 hover:bg-transparent focus:border-0 focus:bg-transparent"
           />
 
-          <Label className="text-zinc-800 mt-2 font-normal" htmlFor="email">
-            Password
+          <Label className="text-[#5B5757] font-bold" htmlFor="password">
+            Senha
           </Label>
-          <Input
-            id="password"
-            type="password"
-            name="password"
-            placeholder="Your password"
-            autoCorrect="off"
-            autoComplete="email"
-            autoCapitalize="none"
-            className="text-zinc-800 mb-4 rounded-lg h-10 placeholder:text-black border border-slate-300 hover:border-blue-400 focus:border-blue-400"
-          />
-
+          <div className="relative">
+            <Input
+              id="password"
+              type={passwordVisible ? "text" : "password"}
+              name="password"
+              placeholder="Digite sua senha"
+              autoCorrect="off"
+              autoComplete="current-password"
+              autoCapitalize="none"
+              className="text-[#5B5757] rounded-xl h-10 placeholder:text-[#536779] border border-slate-300 hover:bg-transparent focus:border-0 focus:bg-transparent pr-10"
+            />
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="absolute inset-y-0 right-0 flex items-center pr-3 text-[#536779]"
+            >
+              {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
           <SignInButton />
         </div>
       </form>
