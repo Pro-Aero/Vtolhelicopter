@@ -1,6 +1,6 @@
 "use server";
 
-import { API_AUTH } from "@/utils/constants";
+import { API_AUTH, URL_API } from "@/utils/constants";
 import { z } from "zod";
 const signInFormSchema = z.object({
   email: z.string().email(),
@@ -14,7 +14,7 @@ export async function signInWithEmail(data: FormData) {
   form.append("email", email);
   form.append("password", password);
 
-  const response = await fetch("https://academy.proaero.aero/api/1/login", {
+  const response = await fetch(`${URL_API}/api/1/login`, {
     method: "POST",
     headers: {
       "x-auth-token": API_AUTH,
