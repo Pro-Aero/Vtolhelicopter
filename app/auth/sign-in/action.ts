@@ -9,7 +9,6 @@ const signInFormSchema = z.object({
 
 export async function signInWithEmail(data: FormData) {
   const { email, password } = signInFormSchema.parse(Object.fromEntries(data));
-  console.log(data);
 
   const form = new FormData();
   form.append("email", email);
