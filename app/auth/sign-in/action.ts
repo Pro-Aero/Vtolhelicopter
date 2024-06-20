@@ -2,7 +2,6 @@
 
 import { API_AUTH } from "@/utils/constants";
 import { z } from "zod";
-import { useRouter } from "next/navigation";
 const signInFormSchema = z.object({
   email: z.string().email(),
   password: z.string().min(2),
@@ -10,6 +9,7 @@ const signInFormSchema = z.object({
 
 export async function signInWithEmail(data: FormData) {
   const { email, password } = signInFormSchema.parse(Object.fromEntries(data));
+  console.log(data);
 
   const form = new FormData();
   form.append("email", email);
